@@ -3,6 +3,9 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
+import job from "../src/config/cron.js";
+import { ENV } from "../src/config/env.js";
+
 
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
@@ -18,12 +21,16 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 const PORT = process.env.PORT;
+console.log(PORT);
+
+
+if (ENV.NODE_ENV === "production") job.start();
 
 const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://5001",
     credentials: true, // allow frontend to send cookies
   })
 );
