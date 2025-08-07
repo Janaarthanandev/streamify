@@ -3,8 +3,6 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
-import job from "../src/config/cron.js";
-import { ENV } from "../src/config/env.js";
 
 
 import authRoutes from "./routes/auth.route.js";
@@ -15,22 +13,14 @@ import { connectDB } from "./lib/db.js";
 
 const app = express();
 
-app.use(cors({
-  origin: ["https://streamify-q97r.onrender.com"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
 const PORT = process.env.PORT;
-console.log(PORT);
 
-
-if (ENV.NODE_ENV === "production") job.start();
 
 const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: "https://5001",
+    origin: "http://localhost:5001",
     credentials: true, // allow frontend to send cookies
   })
 );
