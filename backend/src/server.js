@@ -11,6 +11,12 @@ import chatRoutes from "./routes/chat.route.js";
 import { connectDB } from "./lib/db.js";
 
 const app = express();
+
+app.use(cors({
+  origin: ["https://streamify-q97r.onrender.com"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 const PORT = process.env.PORT;
 
 const __dirname = path.resolve();
