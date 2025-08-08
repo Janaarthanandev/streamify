@@ -4,23 +4,29 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
 
-
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
 
 import { connectDB } from "./lib/db.js";
+import job from "./config/cron.js";
 
 const app = express();
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ success: true });
+});
 
 const PORT = process.env.PORT;
+const NODE_ENV = process.env.NODE_ENV;
+
+if (NODE_ENV === "production") job.start();
 
 
 const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: "http://localhost:5001",
+    origin: "https://streamify-q97r.onrender.com",
     credentials: true, // allow frontend to send cookies
   })
 );
