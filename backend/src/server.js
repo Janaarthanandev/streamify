@@ -26,7 +26,7 @@ const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: "https://streamify-q97r.onrender.com",
+    origin: "http://localhost:5173" || process.env.API_URL,
     credentials: true, // allow frontend to send cookies
   })
 );
